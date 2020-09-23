@@ -50,11 +50,6 @@ public class ToDoListController {
         return new ResponseEntity(newCase, HttpStatus.OK);
     }
 
-    @PutMapping("/cases/{id}/")
-    public ResponseEntity addCase(@PathVariable int id) {
-        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
-    }
-
     @DeleteMapping("/cases/{id}")
     public ResponseEntity deleteCase(@PathVariable int id) {
         boolean flag = Storage.deleteCase(id);
@@ -64,7 +59,14 @@ public class ToDoListController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    @PostMapping("/cases/{id}")
+    //Метод запрещён
+    @PostMapping("/cases/{id}/")
+    public ResponseEntity addCase(@PathVariable int id) {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+    }
+
+    //Обновление данных
+    @PutMapping("/cases/{id}")
     public ResponseEntity putCase(Case newCase, @PathVariable int id) {
         boolean flag = Storage.putCase(id, newCase);
         if (flag) {
