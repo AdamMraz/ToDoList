@@ -1,28 +1,40 @@
 package main;
 
+import main.model.NewCaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import response.Case;
+import main.model.Case;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 public class ToDoListController {
+
+    @Autowired
+    private NewCaseRepository newCaseRepository;
+
     @GetMapping("/cases/")
     public List<Case> getList() {
-        return Storage.getAllCase();
+        List<Case> cases = new ArrayList<Case>();
+        newCaseRepository.findAll().forEach(cases::add);
+        cases.forEach(System.out::println);
+        return cases;
     }
 
     @PostMapping("/cases/")
     public int addToList(Case newCase) {
-        return Storage.addCase(newCase);
+        Case newCase2 = newCaseRepository.save(newCase);
+        return newCase2.getId();
     }
 
     @DeleteMapping("/cases/")
     public ResponseEntity deleteList() {
-        Storage.deleteCases();
+        newCaseRepository.deleteAll();
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -30,21 +42,20 @@ public class ToDoListController {
     public ResponseEntity putList(Case newCases) {
         String[] values = newCases.getValue().split(",");
         String[] deadLines = newCases.getDeadLine().split(",");
-        List<Case> cases = new ArrayList<Case>();
         for (int i = 0; i < values.length; i++) {
-            cases.add(new Case(values[i], deadLines[i]));
+            Case one = new Case();
+            one.setValue(values[i]);
+            one.setDeadLine(deadLines[i]);
+            Case newCase2 = newCaseRepository.save(one);
+            System.out.println(newCase2.getId());
         }
-        Storage.putCases(cases);
-//        System.out.println(newCases.get(0).getValue() + " " + newCases.get(0).getDeadLine());
         return ResponseEntity.status(HttpStatus.OK).body(null);
-
-
     }
 
     @GetMapping("/cases/{id}")
     public ResponseEntity getCase(@PathVariable int id) {
-        Case newCase = Storage.getCase(id);
-        if (newCase == null) {
+        Optional<Case> newCase = newCaseRepository.findById(id);
+        if (newCase.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return new ResponseEntity(newCase, HttpStatus.OK);
@@ -52,10 +63,7 @@ public class ToDoListController {
 
     @DeleteMapping("/cases/{id}")
     public ResponseEntity deleteCase(@PathVariable int id) {
-        boolean flag = Storage.deleteCase(id);
-        if (flag) {
-            return ResponseEntity.status(HttpStatus.OK).body(null);
-        }
+        newCaseRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
@@ -67,11 +75,10 @@ public class ToDoListController {
 
     //Обновление данных
     @PutMapping("/cases/{id}")
-    public ResponseEntity putCase(Case newCase, @PathVariable int id) {
-        boolean flag = Storage.putCase(id, newCase);
-        if (flag) {
-            return ResponseEntity.status(HttpStatus.OK).body(null);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    public ResponseEntity putCase(@PathVariable int id, Case newCase) {
+        newCase.setId(id);
+        System.out.println(newCase.getId() + ";" + newCase.getValue() + ";" + newCase.getDeadLine());
+        newCaseRepository.save(newCase);
+        return getCase(id);
     }
 }
