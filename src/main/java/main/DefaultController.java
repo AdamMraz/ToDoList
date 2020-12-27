@@ -1,15 +1,29 @@
 package main;
 
+import main.model.Case;
+import main.model.NewCaseRepository;
+import org.hibernate.Cache;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Random;
+import java.util.ArrayList;
 
-@RestController
+@Controller
 public class DefaultController {
+
+    @Autowired
+    NewCaseRepository caseRepository;
+
     @RequestMapping("/")
-    public String randomInt() {
-        Random random = new Random();
-        return Integer.toString(random.nextInt());
+    public String index(Model model) {
+        Iterable<Case> caseIterable = caseRepository.findAll();
+        ArrayList<Case> cases = new ArrayList<>();
+        for (Case newCase : caseIterable) {
+            cases.add(newCase);
+        }
+        model.addAttribute("cases", cases);
+        return "index";
     }
 }
