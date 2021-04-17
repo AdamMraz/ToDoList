@@ -4,3 +4,4 @@
 /target/
 *.xml
 *.iml
+/src/main/resources/static/
