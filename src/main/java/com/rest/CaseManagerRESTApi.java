@@ -1,9 +1,9 @@
-package main.com.rest;
+package com.rest;
 
-import main.com.dto.CaseDTO;
-import main.com.model.Case;
-import main.com.service.CaseManagerService;
-import main.com.service.ConverterDtoToModel;
+import com.dto.CaseDTO;
+import com.model.Case;
+import com.service.CaseManagerService;
+import com.service.ConverterDtoToModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/case/")

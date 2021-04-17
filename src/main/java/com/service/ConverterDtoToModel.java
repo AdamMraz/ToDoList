@@ -1,7 +1,7 @@
-package main.com.service;
+package com.service;
 
-import main.com.dto.CaseDTO;
-import main.com.model.Case;
+import com.dto.CaseDTO;
+import com.model.Case;
 
 public class ConverterDtoToModel {
     public static Case ConverterDtoToModel(CaseDTO caseDTO) {

@@ -1,7 +1,7 @@
 /.idea/
-/src/main/resources/
 /src/test/
 /target/
 *.xml
 *.iml
 /src/main/resources/static/
+/src/main/java/com/rest/DefaultController.java

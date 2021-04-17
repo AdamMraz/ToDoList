@@ -1,11 +1,8 @@
-package main.com.service;
+package com.service;
 
-import main.com.model.Case;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import com.model.Case;
 
 import java.util.List;
-import java.util.Map;
 
 public interface CaseManagerService {
 

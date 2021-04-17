@@ -1,8 +1,8 @@
-package main.com.service.impl;
+package com.service.impl;
 
-import main.com.model.Case;
-import main.com.repository.CaseRepo;
-import main.com.service.CaseManagerService;
+import com.model.Case;
+import com.repository.CaseRepo;
+import com.service.CaseManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
