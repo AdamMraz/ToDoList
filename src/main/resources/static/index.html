@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+    <header>
+        <meta charset="UTF-8">
+        <title>To Do List</title>
+        <script src="js/dependencies/jquery-3.6.0.min.js"></script>
+        <script src="js/main.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </header>
+    <body>
+        <div id="fog">
+        </div>
+        <div id="add-form">
+            <form>
+                <h2>Создать дело</h2>
+                <lable class="form-text">Дело:</lable>
+                <br>
+                <input type="text" name="value" value="">
+                <br>
+                <label class="form-text">Срок (до):</label>
+                <br>
+                <input type="text" name="deadLine" value="">
+                <br>
+                <button type="button" id="add-case">Создать</button>
+            </form>
+        </div>
+        <div id="update-form">
+            <form>
+                <h2>Обновить дело</h2>
+                <br>
+                <lable class="form-text">Дело:</lable>
+                <br>
+                <input type="text" name="value" value="">
+                <br>
+                <label class="form-text">Срок (до):</label>
+                <br>
+                <input type="text" name="deadLine" value="">
+                <br>
+                <button type="button" id="update-case">Создать</button>
+            </form>
+        </div>
+        <h1>Список дел</h1>
+        <table id="case-list-table">
+            <tr id="header">
+                <td class="id">ID</td>
+                <td class="case">Дело</td>
+                <td class="dead-line">Срок</td>
+                <td class="delete"><button onclick="$.clear()">Удалить всё</button></td>
+                <td class="update"><button id="show-add-case-form" onclick="$.showAddCaseForm()">Создать дело</button></td>
+            </tr>
+        </table>
+    </body>
+</html>
