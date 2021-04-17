@@ -24,9 +24,11 @@ public class CaseManagerServiceImpl implements CaseManagerService {
     }
 
     @Override
-    public void addCase(Case newCase) {
-        newCase.setId((int)(caseRepo.count() + 1));
+    public int addCase(Case newCase) {
+        int id = (int)(caseRepo.count() + 1);
+        newCase.setId(id);
         caseRepo.save(newCase);
+        return id;
     }
 
     @Override
@@ -36,7 +38,11 @@ public class CaseManagerServiceImpl implements CaseManagerService {
 
     @Override
     public void updateCasesList(List<Case> casesList) {
-        casesList.forEach(caseRepo::save);
+        for(Case newCase : casesList) {
+            if(!updateCase(newCase)) {
+                addCase(newCase);
+            }
+        }
     }
 
     @Override

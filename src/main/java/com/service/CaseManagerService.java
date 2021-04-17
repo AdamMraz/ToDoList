@@ -10,7 +10,7 @@ public interface CaseManagerService {
     List<Case> getCasesList();
 
     //Создание нового дела
-    void addCase(Case newCase);
+    int addCase(Case newCase);
 
     //Удаление всех дел
     void deleteAllCases();

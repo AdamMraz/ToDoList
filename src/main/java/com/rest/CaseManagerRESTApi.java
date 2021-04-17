@@ -31,9 +31,8 @@ public class CaseManagerRESTApi {
     //Создание нового дела
     @PostMapping
     public ResponseEntity addCase(CaseDTO newCase) {
-        System.out.println(newCase.getId() + " " + newCase.getValue());
-        caseManagerService.addCase(ConverterDtoToModel.ConverterDtoToModel(newCase));
-        return new ResponseEntity(HttpStatus.OK);
+        int id = caseManagerService.addCase(ConverterDtoToModel.ConverterDtoToModel(newCase));
+        return new ResponseEntity(id, HttpStatus.OK);
     }
 
     //Удаление всех дел
