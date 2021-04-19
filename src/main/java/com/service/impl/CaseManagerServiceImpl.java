@@ -3,20 +3,18 @@ package com.service.impl;
 import com.model.Case;
 import com.repository.CaseRepo;
 import com.service.CaseManagerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CaseManagerServiceImpl implements CaseManagerService {
 
-    private final CaseRepo caseRepo;
 
-    @Autowired
-    public CaseManagerServiceImpl(CaseRepo caseRepo) {
-        this.caseRepo = caseRepo;
-    }
+    private final CaseRepo caseRepo;
 
     @Override
     public List<Case> getCasesList() {
