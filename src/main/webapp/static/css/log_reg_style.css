@@ -1,0 +1,45 @@
+/*body {*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*}*/
+
+#form {
+    /*display: revert;*/
+    width: 400px;
+    height: 100%;
+    margin: auto;
+    padding: 50px;
+}
+
+input, input:focus {
+    outline: none;
+    display: block;
+    margin: auto auto 25px;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 350px;
+    height: 50px;
+    font-size: 18px;
+}
+
+button {
+    display: block;
+    margin: auto auto 20px;
+    width: 150px;
+    height: 35px;
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    background: white;
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+a, a:visited,
+a:focus, a:hover{
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    color: black;
+}

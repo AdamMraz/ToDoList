@@ -1,4 +1,6 @@
 $(function () {
+    var caseCount = 0;
+
     $(function () {
         $.fillTable();
     });
@@ -16,8 +18,9 @@ $(function () {
 
     //Вывод в таблицу
     $.appendCase = function(date) {
+        caseCount++;
         var caseRow = '<tr>'
-            + '<td class="id">' + date.id + '</td>'
+            + '<td class="id">' + caseCount + '</td>'
             + '<td class="case">' + date.value + '</td>'
             + '<td class="dead-line">' + date.deadLine + '</td>'
             + '<td class="delete"><button class="button-delete" onclick="$.deleteCase(' + date.id + ')">Удалить</button></td>'
@@ -28,11 +31,12 @@ $(function () {
 
     //Обновление таблицы
     $.updateTable = function() {
+        caseCount = 0;
         $('#case-list-table tr').each(function () {
            $(this).remove();
         });
         $('#case-list-table').append($('<tr id="header">'
-            + '<td class="id">ID</td>'
+            + '<td class="id">№</td>'
             + '<td class="case">Дело</td>'
             + '<td class="dead-line">Срок</td>'
             + '<td class="delete"><button onclick="$.clear()">Удалить всё</button></td>'
@@ -45,7 +49,7 @@ $(function () {
     $.deleteCase = function(id) {
         $.ajax({
             method: "DELETE",
-            url: ('/api/case/' + id),
+            url: ('/api/v2/case/' + id),
             success: function () {
                 $.updateTable();
             }
@@ -54,10 +58,16 @@ $(function () {
 
     //Получение от бэка
     $.fillTable = function() {
-        $.get('/api/case/', function (response) {
-            response.forEach(function (newCase) {
-                $.appendCase(newCase);
-            });
+        $.ajax({
+            method: "GET",
+            url: '/api/v2/case/',
+            success: function (response) {
+                var i = 1;
+                response.forEach(function (newCase) {
+                    console.log(newCase);
+                    $.appendCase(newCase);
+                });
+            }
         });
     }
 
@@ -66,7 +76,7 @@ $(function () {
         var data = $('#add-form form').serialize();
         $.ajax({
             method: "POST",
-            url: '/api/case/',
+            url: '/api/v2/case/',
             data: data,
             success: function () {
                 $.updateTable();
@@ -80,7 +90,7 @@ $(function () {
     $.clear = function () {
         $.ajax({
             method: "DELETE",
-            url: '/api/case/',
+            url: '/api/v2/case/',
             success: function () {
                 $.updateTable();
             }
@@ -96,7 +106,7 @@ $(function () {
             var data = $('#update-form form').serialize();
             $.ajax({
                 method: "PUT",
-                url: ('/api/case/' + id),
+                url: ('/api/v2/case/' + id),
                 data: data,
                 success: function () {
                     $('#update-form').css('display', 'none');

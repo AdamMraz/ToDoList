@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class CaseDTO {
-    private String id;
+    private int id;
+    private UserDTO user;
     private String value;
     private String deadLine;
 }

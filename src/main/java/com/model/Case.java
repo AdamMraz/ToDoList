@@ -1,15 +1,13 @@
 package com.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Data
-@Table(name = "todolist")
+@Getter
+@Setter
+@Table(name = "new_case")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +19,8 @@ public class Case {
     private String value;
     @Column(name = "dead_line")
     private String deadLine;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

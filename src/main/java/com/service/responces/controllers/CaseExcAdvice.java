@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice(annotations = CaseExceptionHandler.class)
-public class DefaultAdvice {
+public class CaseExcAdvice {
 
     @ExceptionHandler(CaseIsNotException.class)
     public ResponseEntity<Response> caseIsNotException () {
