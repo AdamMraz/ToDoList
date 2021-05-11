@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html>
-    <head>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
         <meta charset="UTF-8">
         <title>To Do List</title>
         <script src="js/dependencies/jquery-3.6.0.min.js"></script>
@@ -42,7 +42,7 @@
                 <br>
                 <input type="text" name="deadLine" value="">
                 <br>
-                <button type="button" id="update-case">Создать</button>
+                <button type="button" id="update-case">Обновить</button>
             </form>
         </div>
         <table id="case-list-table">
@@ -52,6 +52,13 @@
                 <td class="dead-line">Срок</td>
                 <td class="delete"><button onclick="$.clear()">Удалить всё</button></td>
                 <td class="update"><button id="show-add-case-form" onclick="$.showAddCaseForm()">Создать дело</button></td>
+            </tr>
+            <tr th:each="case, index : ${caseList}">
+                <td class="id" th:text="${index.count}"></td>
+                <td class="case" th:text="${case.value}"></td>
+                <td class="dead-line" th:text="${case.deadLine}"></td>
+                <td class="delete"><button class="button-delete" th:onclick="'$.deleteCase(' + ${case.id} + ')'">Удалить</button></td>
+                <td class="update"><button class="button-update" th:onclick="'$.updateCase(' + ${case.id} + ')'">Обновить</button></td>
             </tr>
         </table>
     </body>

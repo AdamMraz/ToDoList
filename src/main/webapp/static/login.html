@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
@@ -8,6 +8,7 @@
     <body>
         <div id="form">
             <form method="post" action="/login">
+                <p th:text="${errorText}"></p>
                 <input name="username" type="text" placeholder="Username" autofocus="true">
                 <input name="password" type="password" placeholder="Password">
                 <button type="submit">Login</button>

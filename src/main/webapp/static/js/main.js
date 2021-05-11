@@ -1,10 +1,6 @@
 $(function () {
     var caseCount = 0;
 
-    $(function () {
-        $.fillTable();
-    });
-
     $.showAddCaseForm = function () {
         $('#add-form').css('display', 'flex');
         $('#fog').css('display', 'flex');

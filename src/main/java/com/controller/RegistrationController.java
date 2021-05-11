@@ -32,21 +32,18 @@ public class RegistrationController {
          return principal != null ? "redirect:/table" : "registration.html";
     }
 
-    @GetMapping(value = "{error}")
-    public String registrations (@PathVariable String error, Principal principal, Model model) {
-        String[] str = error.split("=");
-        String url = "/err-page/registration/err" + str[1] + ".html";
-        return principal != null ? "redirect:/table" : url;
-    }
-
     @PostMapping
-    public String addUser(UserDTO userForm, Model model) throws UserIsException {
+    public String addUser(UserDTO userForm, Principal principal, Model model) throws UserIsException {
+        if (principal != null) {
+            return "redirect:/table";
+        }
         User user = new User();
         if (userForm.getPassword().equals(userForm.getConfirmPassword())) {
             user = ConvertUserDtoToModel.ConverterDtoToModel(userForm);
         }
         else {
-            return "redirect:/registration/error%3D412";
+            model.addAttribute("errorText", "Пароли не совпадают");
+            return "registration.html";
         }
         StringBuilder apiKey = new StringBuilder();
         for (int i = 0; i < 15; i++) {
@@ -75,7 +72,8 @@ public class RegistrationController {
             userManagerService.saveUser(user);
         }
         catch (UserIsException e) {
-            return "redirect:/registration/error%3D409";
+            model.addAttribute("errorText", "Пользователь с таким логином уже существует");
+            return "registration.html";
         }
         return "redirect:/";
     }
