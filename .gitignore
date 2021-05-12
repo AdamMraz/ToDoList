@@ -1,6 +1,7 @@
 /.idea/
 /src/test/
-/target/
+/target/*
+!/target/ToDoList-1.0.jar
 *.iml
 /out/
 /src/main/resources/META-INF/
